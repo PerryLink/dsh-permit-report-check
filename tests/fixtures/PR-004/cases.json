@@ -1,0 +1,32 @@
+{
+  "ruleId": "PR-004",
+  "configure": {
+    "PR-004": {
+      "values": [
+        "准予",
+        "不予",
+        "不予受理",
+        "终止",
+        "补正后准予"
+      ]
+    }
+  },
+  "pairs": [
+    {
+      "name": "expected-state",
+      "material": "PR-004-compliant.json",
+      "expect": {
+        "ruleId": "PR-004",
+        "count": 0
+      }
+    },
+    {
+      "name": "difference-present",
+      "material": "PR-004-unsafe.json",
+      "expect": {
+        "ruleId": "PR-004",
+        "count": 1
+      }
+    }
+  ]
+}

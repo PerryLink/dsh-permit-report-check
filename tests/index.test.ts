@@ -1,0 +1,43 @@
+import { describeTablePlugin } from './table-plugin-suite.ts'
+import { Config } from '../src/config.ts'
+import { parseMaterial, runCheck, SPEC } from '../src/model.ts'
+import { buildView } from '../src/view.ts'
+import { inject, name, resolvePackageFile, TOOL_NAME } from '../src/index.ts'
+
+describeTablePlugin({
+  name,
+  inject,
+  TOOL_NAME,
+  resolvePackageFile,
+  Config,
+  rulesFile: 'rules/permit-report-check.yaml',
+  parseMaterial,
+  runCheck,
+  buildView,
+  columnNames: SPEC.columns,
+  samples: {
+    good: {
+          "applicant": "某某公司",
+          "matter": "某某建设项目环评审批",
+          "window": "综合受理窗口",
+          "rows": [
+                {
+                      "序号": "1",
+                      "许可事项": "建设项目环境影响评价文件审批",
+                      "许可机关": "某某生态环境局",
+                      "法定依据": "《中华人民共和国环境影响评价法》第二十二条",
+                      "申请材料": "环境影响报告书全本及公众参与说明",
+                      "已提交材料": "已提交报告书全本（含公众参与说明），受理编号 SL-2026-018",
+                      "受理日期": "2026-03-02",
+                      "法定时限": "60",
+                      "承诺办结日": "2026-04-30",
+                      "决定日期": "2026-04-20",
+                      "决定结果": "准予",
+                      "许可证号": "某环审〔2026〕18 号",
+                      "承办人": "王工"
+                }
+          ]
+    },
+    unknownColumn: { rows: [{ 备注: '甲' }] },
+  },
+})

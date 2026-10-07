@@ -1,0 +1,196 @@
+# 行政许可办理核对 规则库
+#
+# 规则数据与代码分离：替换本文件即可切换规则集版本，无需改动 TypeScript。
+#
+# 条款引用纪律（由 shared/ruleset.ts 强制校验）：
+#   - 每条规则必须写全 document / number / clause / excerpt / kind / source，
+#     且 excerpt 必须是逐字摘录，不得改写。
+#   - kind: direct                       条款直接规定了所检查的要求
+#   - kind: derived-from-principle       条款未直接规定，仅能由原则性条款推论（severity 最多 warn）
+#   - kind: institutional-configuration 阈值出自本机构配置（severity 最多 info）
+#
+# ⚠️⚠️ 本规则库的诚实说明：**excerpt 一律不是引文。**
+#   本插件核对的是"行政许可办理台账"的**齐备与时限自洽**：
+#     申请材料是否逐项列明并记录提交、法定时限与承诺办结日是否填写、
+#     决定日期是否落在承诺办结日之前、决定结果是否记录、
+#     许可证号是否在颁证后填写、受理不晚于决定、事项是否重复登记、是否残留模板占位符。
+#   其规范载体是**《中华人民共和国行政许可法》**（尤其关于申请材料、
+#   受理、审查期限、决定与颁发证件的条文）与**各事项的办事指南**。
+#   **核查未取得这些文件的逐字条文**，故每条 excerpt 如实写明，kind 降为 derived-from-principle（封顶 warn）。
+#
+# ⚠️⚠️ 另一条**必须保留的边界**：**本插件绝不判定许可决定是否合法、
+#   申请材料是否齐全合规、是否应当受理、是否应当准予许可**。
+#   那需要许可机关依法审查，也是行政程序的核心。
+#   → **本插件不判断"申请材料清单是否完整"**：它读的是台账自己列的"申请材料"栏，
+#     逐项核对**是否记录了提交情况**，而**不是**核对这份清单是否符合办事指南。
+#   → **法定时限（legalDays）一律取自台账**：各事项的期限不同（且可依法延长），
+#     本插件**不内置任何期限天数**。
+#   → **决定结果清单（decisions）出厂为空。**
+
+plugin: dsh-permit-report-check
+version: "2026.1"
+
+rules:
+  - id: PR-001
+    title: 每条申请材料都应记录提交情况
+    severity: warn
+    basis:
+      document: 《中华人民共和国行政许可法》
+      number: 现行版本与条号本次未核实
+      clause: 关于申请材料与受理的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.gov.cn/gongbao/content/2003/content_62372.htm
+    params:
+        check:
+          kind: conditionalPresence
+          conditionField: requiredItems
+          requiredFields: ["submittedItems"]
+          conditionValues: []
+          fix: 补填该项材料的提交情况；本条只核对是否记录，不判断材料是否符合要求
+    note: >-
+      申请材料若不逐项记录提交情况，"材料是否齐全"就只剩下一句口头结论，
+      受理与补正都失去依据。本次未取得明文条号，故封顶 warn。
+      ⚠️ **本条读的是台账自己列的"申请材料"栏**，核对**是否记录了提交情况**；
+      它**不核对这份清单是否符合该事项的办事指南** —— 那需要比对指南原文，本插件不做。
+      本条只核对提交情况栏是否填写，**不判断所提交的材料是否符合要求、是否齐全**。
+
+  - id: PR-002
+    title: 受理日期不应晚于决定日期
+    severity: warn
+    basis:
+      document: 《中华人民共和国行政许可法》
+      number: 现行版本与条号本次未核实
+      clause: 关于受理与决定的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.gov.cn/gongbao/content/2003/content_62372.htm
+    params:
+        check:
+          kind: date
+          field: acceptedAt
+          notAfterField: decidedAt
+          fix: 决定日期不应早于受理日期；核对两个日期的填写
+    note: >-
+      "先受理、后决定"是行政许可程序的**时间前提**；日期可解析是台账能被程序处理的前提。
+      本次未取得明文条号，故封顶 warn。
+      本条只比较两个日期（同一天视为不晚于），**不判断程序是否合法、是否应当受理**。
+      日期无法解析时会单独报出，**不会静默跳过**。
+
+  - id: PR-003
+    title: 决定日期不应晚于承诺办结日
+    severity: info
+    basis:
+      document: 各事项办事指南与承诺时限（本机构配置）
+      number: 无统一标准（本条依据为台账写明的承诺办结日）—— ⚠️ 法定上限见《行政许可法》第四十二条，本条不引用该条
+      clause: 本条依据为本机构办事指南的承诺时限（本机构配置）；⚠️ 法定上限见《行政许可法》第四十二条——自受理之日起二十日内作出决定，经批准可延长十日，本条不作为引用依据
+      excerpt: 本条依据为本机构配置的口径，不存在可引用的标准条文；本规则库不伪造引文。
+      kind: institutional-configuration
+      source: https://www.gov.cn/gongbao/content/2003/content_62372.htm
+    params:
+        check:
+          kind: date
+          field: decidedAt
+          notBeforeField: acceptedAt
+          notAfterField: dueAt
+    note: >-
+      ⚠️ **本条依据为本机构配置，不存在可引用的标准条文**（2026-10-07 核实）：`dueAt` 出自本机构办事指南，**《行政许可法》通篇没有"承诺办结日"这一概念**。⚠️ **第四十二条给出的是法定最长期限（二十日，可延长十日），承诺时限通常比它更严——两者不可互相替代。** ⇒ `values` 出厂为空即进 skipped。
+      本条只在台账**已经写出承诺办结日**（dueAt）时，核对决定日期是否落在受理日与办结日之间。
+      依据说明（据《行政许可法》逐字核对，见 rules/evidence/clause-verification.md）：
+      ① **该法第八十二条原文「本法规定的行政机关实施行政许可的期限以工作日计算，不含法定节假日」** ——
+      法定期限按**工作日**算，而台账通常只记自然日，直接用条文天数去比对会得出错误结论；
+      ② 第四十二条给出的一般期限是「自受理行政许可申请之日起**二十日**内」，二十日内不能决定的
+      "可以延长**十日**"，统一／联合／集中办理为**四十五日**并"可以延长**十五日**"；
+      ③ 第四十五条另规定听证、检验、检测、鉴定、专家评审等"**所需时间不计算在本节规定的期限内**"。
+      ⇒ 三项叠加，**"台账自填的承诺办结日"是唯一可靠的比对基准**，故本插件**不内置任何期限天数**、
+      也**不替使用方推算办结日**——期限应由使用方按办事指南算出后写入台账的 dueAt 栏。
+      dueAt 为空时本条进 skipped，**不会假定任何期限**。
+      本条命中只表示"与你写在台账里的期限不一致"，**不表示已经超期** ——
+      超期与否需结合补正、延期与不计入期限等实际情形判断。
+
+  - id: PR-004
+    title: 决定结果应使用本机构口径的取值
+    severity: info
+    basis:
+      document: 本机构许可办理管理口径（本机构配置）
+      number: 无统一标准（本条依据为本机构配置的结果口径）—— ⚠️ 法定决定类型见《行政许可法》第三十八条，本条不引用该条
+      clause: 本条依据为本机构许可办理管理口径（本机构配置）；⚠️ 法定决定类型见《行政许可法》第三十八条（准予／不予的书面决定），本条不作为引用依据
+      excerpt: 本条依据为本机构配置的口径，不存在可引用的标准条文；本规则库不伪造引文。
+      kind: institutional-configuration
+      source: https://www.gov.cn/gongbao/content/2003/content_62372.htm
+    params:
+        check:
+          kind: enum
+          field: decision
+          values: []
+    note: >-
+      ⚠️ **本条依据为本机构配置，不存在可引用的标准条文**（2026-10-07 核实）：核对表"决定结果"栏的**取值清单属本机构口径**。⚠️ 与法律的关系已写明：**第三十八条规定的是准予与不予两种书面决定并附说明理由义务**，**与台账的取值集合不是同一件事**。
+      values 出厂为空，表示**未配置**，本条进 skipped。
+      依据说明：决定结果的口径（例如「准予」「不予」「不予受理」「终止」「补正后准予」）
+      随**本机构许可办理管理口径与事项类型**变化，本插件**不硬编码任何取值清单**。
+      本条只核对所填值是否在册，**不判断该决定是否正确、是否合法**。
+
+  - id: PR-005
+    title: 表示已办结的记录应填写许可证号
+    severity: warn
+    basis:
+      document: 《中华人民共和国行政许可法》
+      number: 现行版本与条号本次未核实
+      clause: 关于颁发行政许可证件的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.gov.cn/gongbao/content/2003/content_62372.htm
+    params:
+        check:
+          kind: conditionalPresence
+          conditionField: decision
+          requiredFields: ["certificateNo"]
+          conditionValues: ["准予","准予许可","通过","同意","已办结","批准"]
+          fix: 已准予的记录应填写许可证号；本条只核对是否填写
+    note: >-
+      准予许可而不记录证件号，台账就出现了**闭环缺口**：
+      要么证件尚未颁发，要么台账漏记。本次未取得明文条号，故封顶 warn。
+      ⚠️ 判定"已准予"的取值由 conditionValues 配置，**本插件不内置任何决定结果清单**。
+      本条只核对证件号是否填写，**不判断该证件是否真实有效、是否已送达**。
+
+  - id: PR-006
+    title: 核对表应声明申请人与申请事项
+    severity: warn
+    basis:
+      document: 《中华人民共和国行政许可法》
+      number: 现行版本与条号本次未核实
+      clause: 关于申请与受理的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.gov.cn/gongbao/content/2003/content_62372.htm
+    params:
+        check:
+          kind: headerPresence
+          fields: ["applicant","matter"]
+    note: >-
+      核对表若不写明申请人与申请事项，办理情况就无法与具体的申请对应，
+      时限也无法按事项核对。本次未取得明文条号，故封顶 warn。
+      配置项 applicant 对应申请人，matter 对应申请事项。
+      若本机构表式还在表头记录受理窗口，把 window 加进 fields 即可。
+
+  - id: PR-007
+    title: 许可事项不应在表内重复登记
+    severity: warn
+    basis:
+      document: 《中华人民共和国行政许可法》
+      number: 现行版本与条号本次未核实
+      clause: 关于申请与受理的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.gov.cn/gongbao/content/2003/content_62372.htm
+    params:
+        check:
+          kind: unique
+          field: permitType
+    note: >-
+      同一许可事项在表内出现两次，会让人无法判断哪一行对应本次申请，
+      时限核对也可能被重复计算。本次未取得明文条号，故封顶 warn。
+      ⚠️ 本条**命中需要人工确认**：一个项目同时申请多个事项（或多份材料）时，
+      事项名称相同是可能的，此时应在材料名称栏区分，而不是简单删除。
+
+disabled: []

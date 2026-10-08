@@ -1,4 +1,25 @@
-# dsh-permit-report-check
+# dsh-permit-report-check — Administrative licensing application register completeness and date consistency check
+
+`dsh-permit-report-check` reads one 行政许可办理台账 — the applicant header plus one row per application item — and checks that register's own closed loop and internal consistency: that each item listed in the 申请材料 column records whether it was submitted, that 受理日期 does not fall after 决定日期, that 决定日期 falls between 受理日期 and the 承诺办结日 the register itself records, that 决定结果 comes from the vocabulary you configured, that a record whose 决定结果 marks a grant carries its 许可证号, that the header names its 申请人 and 申请事项, and that no 许可事项 is registered twice in the table.
+
+## What it answers
+
+| You ask | What it answers |
+|---|---|
+| A row lists materials in 申请材料, but 已提交材料 is blank — is that reported? | Yes. `PR-001` requires a `submittedItems` value on every row whose 申请材料 cell is filled, and reports the row when the submission column is empty. It reads the register's own materials column and checks only whether the submission is recorded: it does not compare that list with the matter's service guide, and does not judge whether the materials submitted are complete or compliant. If no row has a filled 申请材料 cell, the rule reports itself in `skipped`. |
+| 受理日期 is later than 决定日期 — will that be caught? | Yes. `PR-002` compares the two dates the register itself carries, `acceptedAt` against `decidedAt`, treats the same day as not later, and reports the row where acceptance follows the decision. It only compares those two dates: it does not judge whether the acceptance was lawful or whether the application should have been accepted. A date it cannot parse is reported as its own finding rather than skipped silently. |
+| What happens when the 承诺办结日 column is empty — and is the 法定时限 column checked at all? | `PR-003` reports itself in `skipped`: no day count is built in, because statutory periods are counted in working days, may be extended and may exclude hearing or expert-review time, so the only baseline is the 承诺办结日 (`dueAt`) the register states. No rule reads the 法定时限 (`legalDays`) column. When `dueAt` is filled, the rule checks that 决定日期 falls between 受理日期 and it; a finding means the decision disagrees with the deadline you recorded, never that it was late. |
+| I wrote 补正后准予 into 决定结果. Is that accepted? | `PR-004` checks 决定结果 against the vocabulary in its `values` parameter, and that parameter ships empty — so as delivered the rule reports itself in `skipped` instead of judging your wording. Fill `values` with the outcomes your institution records (for example 不予受理) and any value not on that list is reported. The rule checks only whether the value is on the list; it does not judge whether the decision is correct or lawful. |
+| A record says 准予 but the 许可证号 column is blank. | `PR-005` reports it: when 决定结果 matches a grant marker — `conditionValues`, by default 准予 / 准予许可 / 通过 / 同意 / 已办结 / 批准 — the record must carry its 许可证号 (`certificateNo`). It checks only that the number is filled in, not whether the certificate is genuine, valid or served. With no row matching a grant marker, the rule reports itself in `skipped`. |
+| The same 许可事项 appears in two rows. | `PR-007` reports the later row and names the row it duplicates, because two registrations of one matter make the deadline check ambiguous. It checks uniqueness only, and a hit needs human confirmation: one project applying for several matters may legitimately look the same, so distinguish it in the materials column rather than deleting the row. Differences in whitespace are ignored; with no 许可事项 column the rule reports itself in `skipped`. |
+
+## Standards it follows
+
+| Document | Number | Cited by rules |
+|---|---|---|
+| 《中华人民共和国行政许可法》 | 现行版本与条号本次未核实 | PR-001, PR-002, PR-005, PR-006, PR-007 |
+| 各事项办事指南与承诺时限（本机构配置） | 无统一标准（本条依据为台账写明的承诺办结日）—— ⚠️ 法定上限见《行政许可法》第四十二条，本条不引用该条 | PR-003 |
+| 本机构许可办理管理口径（本机构配置） | 无统一标准（本条依据为本机构配置的结果口径）—— ⚠️ 法定决定类型见《行政许可法》第三十八条，本条不引用该条 | PR-004 |
 
 **Boundary:** this plugin checks an **行政许可办理台账** for the closed loop a register can be held to — that each
 application item records its submission, that acceptance does not follow the decision, that the decision falls

@@ -63,8 +63,7 @@ application item — applies a versioned rule pack, and returns a report.
 ## Install
 
 ```sh
-pnpm pack
-dsh plugin --profile <name> add ./dsh-permit-report-check-0.1.0.tgz
+dsh plugin --profile <name> add dsh-permit-report-check
 dsh --profile <name> --dump-config | grep 'dsh-permit-report-check'
 ```
 

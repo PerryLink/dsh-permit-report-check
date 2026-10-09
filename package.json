@@ -1,6 +1,6 @@
 {
   "name": "dsh-permit-report-check",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "行政许可办理核对（按申请材料、法定时限与决定记录核对台账闭环，仅提示差异，不作出定性结论）",
   "type": "module",
   "main": "lib/index.mjs",

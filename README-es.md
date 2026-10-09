@@ -1,6 +1,14 @@
 # dsh-permit-report-check — Comprobación de completitud y coherencia de fechas del registro de solicitudes de autorización administrativa
 
+[![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+
 `dsh-permit-report-check` lee un registro de tramitación de autorizaciones administrativas (行政许可办理台账) —la cabecera del solicitante más una fila por solicitud— y comprueba el cierre y la coherencia interna de ese registro: que cada partida enumerada en la columna 申请材料 registre si se presentó, que la 受理日期 no sea posterior a la 决定日期, que la 决定日期 quede entre la 受理日期 y la 承诺办结日 que el propio registro indica, que la 决定结果 proceda del repertorio de valores que usted configure, que un registro cuya 决定结果 indique concesión lleve su 许可证号, que la cabecera declare 申请人 y 申请事项, y que ningún 许可事项 quede registrado dos veces en la tabla.
+
+## Cómo se ve la salida
+
+![Terminal demo of dsh-permit-report-check: real output over its PR-002 fixture](https://raw.githubusercontent.com/PerryLink/dsh-permit-report-check/main/docs/assets/dsh-permit-report-check-demo.png)
+
+Salida real de este plugin sobre su propio fixture de prueba `PR-002` — no es un montaje. El paquete de reglas no inventa citas, así que cada hallazgo nombra la cláusula aplicada y advierte que su texto no se obtuvo.
 
 ## Qué responde
 

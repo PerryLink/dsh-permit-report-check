@@ -4,6 +4,13 @@
 
 `dsh-permit-report-check` 读取一份行政许可办理台账——申请人表头加每条申请一行——核对这份台账自身的闭环与自洽：申请材料栏列出的每一项是否记录了提交情况、受理日期是否不晚于决定日期、决定日期是否落在受理日期与该台账自己写的承诺办结日之间、决定结果是否取自你配置的取值口径、决定结果表示已办结的记录是否填写了许可证号、表头是否声明了申请人与申请事项、许可事项是否在表内重复登记。
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-permit-report-check
+dsh --profile <name> --dump-config | grep 'dsh-permit-report-check'
+```
+
 ## 实际输出长什么样
 
 ![Terminal demo of dsh-permit-report-check: real output over its PR-002 fixture](https://raw.githubusercontent.com/PerryLink/dsh-permit-report-check/main/docs/assets/dsh-permit-report-check-hero.png)
@@ -79,13 +86,6 @@ complete or compliant, whether an application should be accepted, or whether a p
 ## What it does
 
 规则表、字段说明与行为细节见 [README.md](README.md#what-it-does)（英文主版本）。本插件只列出材料与所引条款之间的字面差异，并对无法执行的检查在 `skipped` 中逐项说明。
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-permit-report-check
-dsh --profile <name> --dump-config | grep 'dsh-permit-report-check'
-```
 
 ## Configuration
 

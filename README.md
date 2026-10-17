@@ -4,6 +4,13 @@
 
 `dsh-permit-report-check` reads one 行政许可办理台账 — the applicant header plus one row per application item — and checks that register's own closed loop and internal consistency: that each item listed in the 申请材料 column records whether it was submitted, that 受理日期 does not fall after 决定日期, that 决定日期 falls between 受理日期 and the 承诺办结日 the register itself records, that 决定结果 comes from the vocabulary you configured, that a record whose 决定结果 marks a grant carries its 许可证号, that the header names its 申请人 and 申请事项, and that no 许可事项 is registered twice in the table.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-permit-report-check
+dsh --profile <name> --dump-config | grep 'dsh-permit-report-check'
+```
+
 ## What it looks like
 
 ![Terminal demo of dsh-permit-report-check: real output over its PR-002 fixture](https://raw.githubusercontent.com/PerryLink/dsh-permit-report-check/main/docs/assets/dsh-permit-report-check-hero.png)
@@ -90,13 +97,6 @@ application item — applies a versioned rule pack, and returns a report.
 | `PR-005` | a grant records its certificate number | warn | principle |
 | `PR-006` | the register names its applicant and matter | warn | principle |
 | `PR-007` | matters are not double-registered | warn | principle |
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-permit-report-check
-dsh --profile <name> --dump-config | grep 'dsh-permit-report-check'
-```
 
 ## Configuration
 

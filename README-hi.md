@@ -4,6 +4,13 @@
 
 `dsh-permit-report-check` प्रशासनिक अनुज्ञप्ति के निपटारे का एक रजिस्टर (行政许可办理台账) पढ़ता है — आवेदक हेडर और प्रत्येक आवेदन की एक पंक्ति — और उसी रजिस्टर के बंद-चक्र तथा आंतरिक संगति की जाँच करता है: 申请材料 कॉलम में दर्ज प्रत्येक मद की प्रस्तुति दर्ज है या नहीं, 受理日期 决定日期 के बाद न पड़े, 决定日期 受理日期 और रजिस्टर में लिखी 承诺办结日 के बीच पड़े, 决定结果 आपके द्वारा कॉन्फ़िगर किए गए मानों में से हो, जिस प्रविष्टि का 决定结果 स्वीकृति दर्शाता है उसमें उसका 许可证号 दर्ज हो, हेडर 申请人 और 申请事项 घोषित करे, और कोई 许可事项 तालिका में दो बार दर्ज न हो।
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-permit-report-check
+dsh --profile <name> --dump-config | grep 'dsh-permit-report-check'
+```
+
 ## आउटपुट कैसा दिखता है
 
 ![Terminal demo of dsh-permit-report-check: real output over its PR-002 fixture](https://raw.githubusercontent.com/PerryLink/dsh-permit-report-check/main/docs/assets/dsh-permit-report-check-hero.png)
@@ -79,13 +86,6 @@ complete or compliant, whether an application should be accepted, or whether a p
 ## What it does
 
 नियम-सूची, फ़ील्ड और विस्तृत व्यवहार [README.md](README.md#what-it-does) (अंग्रेज़ी मुख्य संस्करण) में हैं। यह प्लगइन केवल उद्धृत धाराओं के सामने शाब्दिक अंतर सूचीबद्ध करता है और हर न चल पाई जाँच को `skipped` में बताता है।
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-permit-report-check
-dsh --profile <name> --dump-config | grep 'dsh-permit-report-check'
-```
 
 ## Configuration
 

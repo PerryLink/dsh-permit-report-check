@@ -4,6 +4,13 @@
 
 `dsh-permit-report-check` lee un registro de tramitación de autorizaciones administrativas (行政许可办理台账) —la cabecera del solicitante más una fila por solicitud— y comprueba el cierre y la coherencia interna de ese registro: que cada partida enumerada en la columna 申请材料 registre si se presentó, que la 受理日期 no sea posterior a la 决定日期, que la 决定日期 quede entre la 受理日期 y la 承诺办结日 que el propio registro indica, que la 决定结果 proceda del repertorio de valores que usted configure, que un registro cuya 决定结果 indique concesión lleve su 许可证号, que la cabecera declare 申请人 y 申请事项, y que ningún 许可事项 quede registrado dos veces en la tabla.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-permit-report-check
+dsh --profile <name> --dump-config | grep 'dsh-permit-report-check'
+```
+
 ## Cómo se ve la salida
 
 ![Terminal demo of dsh-permit-report-check: real output over its PR-002 fixture](https://raw.githubusercontent.com/PerryLink/dsh-permit-report-check/main/docs/assets/dsh-permit-report-check-hero.png)
@@ -79,13 +86,6 @@ complete or compliant, whether an application should be accepted, or whether a p
 ## What it does
 
 La tabla de reglas, los campos y el comportamiento detallado están en [README.md](README.md#what-it-does) (versión principal en inglés). El plugin sólo enumera divergencias literales frente a las cláusulas citadas e indica en `skipped` cada comprobación que no pudo ejecutarse.
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-permit-report-check
-dsh --profile <name> --dump-config | grep 'dsh-permit-report-check'
-```
 
 ## Configuration
 

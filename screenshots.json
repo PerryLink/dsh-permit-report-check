@@ -1,0 +1,14 @@
+[
+  {
+    "path": "docs/assets/dsh-permit-report-check-hero.png",
+    "kind": "hero",
+    "alt": "dsh-permit-report-check terminal output",
+    "caption": "Real dsh-permit-report-check checker output; 31 tests passed."
+  },
+  {
+    "path": "docs/assets/dsh-permit-report-check-demo.gif",
+    "kind": "demo",
+    "alt": "Animated dsh-permit-report-check terminal session",
+    "caption": "The same run, assembled line by line."
+  }
+]

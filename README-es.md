@@ -6,7 +6,9 @@
 
 ## Cómo se ve la salida
 
-![Terminal demo of dsh-permit-report-check: real output over its PR-002 fixture](https://raw.githubusercontent.com/PerryLink/dsh-permit-report-check/main/docs/assets/dsh-permit-report-check-demo.png)
+![Terminal demo of dsh-permit-report-check: real output over its PR-002 fixture](https://raw.githubusercontent.com/PerryLink/dsh-permit-report-check/main/docs/assets/dsh-permit-report-check-hero.png)
+
+![Animated terminal demo of dsh-permit-report-check](https://raw.githubusercontent.com/PerryLink/dsh-permit-report-check/main/docs/assets/dsh-permit-report-check-demo.gif)
 
 Salida real de este plugin sobre su propio fixture de prueba `PR-002` — no es un montaje. El paquete de reglas no inventa citas, así que cada hallazgo nombra la cláusula aplicada y advierte que su texto no se obtuvo.
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.8] - 2026-10-18
+
+### Fixed
+
+- **Three rules now quote the obtained《行政许可法》text instead of a placeholder.** PR-001 uses 第三十一条, PR-002 第三十七条, PR-005 第三十九条; the evidence file already carried these verbatim. The remaining four placeholders stay honest. `check:citations` moves from 0 to at least 3 checked segments.
+
 ## [0.2.7] - 2026-10-18
 
 ### Changed

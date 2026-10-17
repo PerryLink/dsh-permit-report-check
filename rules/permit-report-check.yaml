@@ -36,9 +36,9 @@ rules:
     severity: warn
     basis:
       document: 《中华人民共和国行政许可法》
-      number: 现行版本与条号本次未核实
-      clause: 关于申请材料与受理的条款（本次未取得条号）
-      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      number: 主席令第七号（2003 年公布文本）
+      clause: 第三十一条
+      excerpt: 申请人申请行政许可，应当如实向行政机关提交有关材料和反映真实情况，并对其申请材料实质内容的真实性负责。行政机关不得要求申请人提交与其申请的行政许可事项无关的技术资料和其他材料。
       kind: derived-from-principle
       source: https://www.gov.cn/gongbao/content/2003/content_62372.htm
     params:
@@ -60,9 +60,9 @@ rules:
     severity: warn
     basis:
       document: 《中华人民共和国行政许可法》
-      number: 现行版本与条号本次未核实
-      clause: 关于受理与决定的条款（本次未取得条号）
-      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      number: 主席令第七号（2003 年公布文本）
+      clause: 第三十七条
+      excerpt: 行政机关对行政许可申请进行审查后，除当场作出行政许可决定的外，应当在法定期限内按照规定程序作出行政许可决定。
       kind: derived-from-principle
       source: https://www.gov.cn/gongbao/content/2003/content_62372.htm
     params:
@@ -135,9 +135,9 @@ rules:
     severity: warn
     basis:
       document: 《中华人民共和国行政许可法》
-      number: 现行版本与条号本次未核实
-      clause: 关于颁发行政许可证件的条款（本次未取得条号）
-      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      number: 主席令第七号（2003 年公布文本）
+      clause: 第三十九条
+      excerpt: 行政机关作出准予行政许可的决定，需要颁发行政许可证件的，应当向申请人颁发加盖本行政机关印章的下列行政许可证件：（一）许可证、执照或者其他许可证书；……
       kind: derived-from-principle
       source: https://www.gov.cn/gongbao/content/2003/content_62372.htm
     params:

@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.9] - 2026-10-18
+
+### Fixed
+
+- PR-006 now quotes 《行政许可法》第三十条 (the authority must publicize the matters, conditions and material list) instead of a placeholder. The remaining three placeholders stay honest.
+
 ## [0.2.8] - 2026-10-18
 
 ### Fixed

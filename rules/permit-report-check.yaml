@@ -158,9 +158,9 @@ rules:
     severity: warn
     basis:
       document: 《中华人民共和国行政许可法》
-      number: 现行版本与条号本次未核实
-      clause: 关于申请与受理的条款（本次未取得条号）
-      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      number: 主席令第七号（2003 年公布文本）
+      clause: 第三十条
+      excerpt: 行政机关应当将法律、法规、规章规定的有关行政许可的事项、依据、条件、数量、程序、期限以及需要提交的全部材料的目录和申请书示范文本等在办公场所公示。
       kind: derived-from-principle
       source: https://www.gov.cn/gongbao/content/2003/content_62372.htm
     params:

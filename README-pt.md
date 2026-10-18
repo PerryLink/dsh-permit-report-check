@@ -1,5 +1,7 @@
 # dsh-permit-report-check — Verificação de completude e coerência de datas do registo de pedidos de autorização administrativa
 
+[English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
+
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
 
 `dsh-permit-report-check` lê um registo de tramitação de autorizações administrativas (行政许可办理台账) —o cabeçalho do requerente mais uma linha por pedido— e verifica o fecho e a coerência interna desse registo: que cada item listado na coluna 申请材料 registe se foi entregue, que a 受理日期 não seja posterior à 决定日期, que a 决定日期 fique entre a 受理日期 e a 承诺办结日 que o próprio registo indica, que a 决定结果 venha do repertório de valores que configurar, que um registo cuja 决定结果 indique deferimento traga o seu 许可证号, que o cabeçalho declare 申请人 e 申请事项, e que nenhum 许可事项 fique registado duas vezes na tabela.

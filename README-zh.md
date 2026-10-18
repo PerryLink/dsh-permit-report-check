@@ -40,12 +40,7 @@ dsh --profile <name> --dump-config | grep 'dsh-permit-report-check'
 | 各事项办事指南与承诺时限（本机构配置） | 无统一标准（本条依据为台账写明的承诺办结日）—— ⚠️ 法定上限见《行政许可法》第四十二条，本条不引用该条 | PR-003 |
 | 本机构许可办理管理口径（本机构配置） | 无统一标准（本条依据为本机构配置的结果口径）—— ⚠️ 法定决定类型见《行政许可法》第三十八条，本条不引用该条 | PR-004 |
 
-**Boundary:** this plugin checks an **行政许可办理台账** for the closed loop a register can be held to — that each
-application item records its submission, that acceptance does not follow the decision, that the decision falls
-between acceptance and the promised completion date, that the decision outcome comes from your vocabulary, that a
-grant records its certificate number, that the register names its applicant and matter, and that matters are not
-double-registered. It does **not** decide whether a permit decision was lawful, whether the materials were
-complete or compliant, whether an application should be accepted, or whether a permit should be granted.
+**边界（中文译文，以英文原文为准）：** 本插件核对一份 **行政许可办理台账** 在台账层面可以要求到的闭环——每项申请材料是否记录了提交情况，受理是否不晚于决定，决定是否落在受理日期与承诺办结日之间，决定结果是否取自你的取值口径，准予是否记录了许可证号，台账是否写明申请人与申请事项，以及许可事项是否未被重复登记。它**不**判定许可决定是否合法、材料是否齐全或合规、申请是否应当受理，或许可是否应当准予。
 
 > ### ⚠️ What this plugin deliberately does not judge
 >

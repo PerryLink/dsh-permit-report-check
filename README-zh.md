@@ -42,34 +42,17 @@ dsh --profile <name> --dump-config | grep 'dsh-permit-report-check'
 
 **边界（中文译文，以英文原文为准）：** 本插件核对一份 **行政许可办理台账** 在台账层面可以要求到的闭环——每项申请材料是否记录了提交情况，受理是否不晚于决定，决定是否落在受理日期与承诺办结日之间，决定结果是否取自你的取值口径，准予是否记录了许可证号，台账是否写明申请人与申请事项，以及许可事项是否未被重复登记。它**不**判定许可决定是否合法、材料是否齐全或合规、申请是否应当受理，或许可是否应当准予。
 
-> ### ⚠️ What this plugin deliberately does not judge
+> ### ⚠️ 这个插件刻意不作判断的事（以英文原文为准）
 >
-> **It does not check whether the materials list is complete.** It reads the register's **own** 申请材料 column
-> and checks that each listed item records whether it was submitted — **not** whether that list matches the
-> matter's service guide. Verifying the list means comparing it against the guide, which this plugin does not do.
+> **它不核对材料清单是否完整。** 它读取台账**自身**的 申请材料 列，核对其中每个列出的材料项是否记录了提交情况——**而不是**核对该清单是否与该事项的办事指南一致。核验清单意味着将其与办事指南比对，而本插件不做这件事。
 >
-> **No statutory period is built in — and the statute says why that is the right call.**
-> 《中华人民共和国行政许可法》was read verbatim (see `rules/evidence/clause-verification.md`), and three of its
-> provisions make a built-in number unusable: **article 82 requires statutory periods to be counted in working
-> days, excluding public holidays**; article 42 sets twenty days with a ten-day extension (forty-five plus
-> fifteen for joint handling); and article 45 excludes time needed for hearings, testing, inspection and expert
-> review from the period altogether. A register normally records calendar dates, so `PR-003` compares the decision
-> date against the **promised completion date written in the register**, and reports itself in `skipped` when that
-> column is empty. A finding means "this disagrees with the deadline you recorded", never "this was late".
+> **不内置任何法定期限——而法律本身说明了为什么这是正确的做法。** 《中华人民共和国行政许可法》已逐字阅读（见 `rules/evidence/clause-verification.md`），其中有三项规定使内置数字无法使用：**第八十二条要求法定期限按工作日计算，不含法定节假日**；第四十二条规定二十日、可延长十日（联合办理为四十五日加十五日）；第四十五条则把听证、检测、检验和专家评审所需时间完全排除在期限之外。台账通常记录日历日期，因此 `PR-003` 把决定日期与**台账中写明的承诺办结日期**相比，并在该列为空时把自己记入 `skipped`。一项发现的意思是「这与你所记录的截止日期不一致」，而绝不是「这已经逾期」。
 >
-> ⚠️ **The text read was the 2003 promulgation**; a 2019 amendment exists and **was not obtained**, so the pack
-> keeps the note 「现行版本与条号本次未核实」 on every rule and claims no article is current law.
+> ⚠️ **本次阅读的文本是 2003 年公布版本**；2019 年存在一次修正，但**本次未取得**，因此规则库在每条规则上都保留了「现行版本与条号本次未核实」的说明，也不声称任何条款属于现行法律。
 >
-> **The outcome vocabulary ships empty.** Wording for grants, refusals and terminations varies by institution
-> and matter, so `PR-004` reports itself in `skipped` until you configure it, and `PR-005` (which requires a
-> certificate number once a grant is recorded) uses a configurable set of grant marker values rather than a
-> built-in list.
+> **结果词表出厂为空。** 准予、不予和终止的措辞因机构和事项而异，因此 `PR-004` 在你配置之前会把自己记入 `skipped`；而 `PR-005`（一旦记录了准予，就要求填写许可证号）使用一组可配置的准予标记值，而不是内置清单。
 >
-> **Every `excerpt` in the rule pack says, in so many words, that the clause text was not obtained.** The
-> regime lives in 《中华人民共和国行政许可法》 and in each matter's service guide. The verification pass could
-> not retrieve verbatim clause text, so the pack states the gap in the `excerpt` field itself and keeps every
-> rule at `warn` or `info`. **When the texts are in hand, replace each `excerpt` with the real clause and
-> raise `kind` to `direct`.**
+> **规则库中的每一个 `excerpt` 都明文写着：条款原文本次未取得。** 该制度见于《中华人民共和国行政许可法》以及每个事项的办事指南。核验环节无法取得逐字条款原文，因此规则库在 `excerpt` 字段本身写明这一缺口，并把每条规则保持在 `warn` 或 `info`。**待取得原文后，请把每个 `excerpt` 换成真实条款，并把 `kind` 提到 `direct`。**
 
 ## Compatibility
 

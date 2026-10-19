@@ -30,6 +30,34 @@ dsh --profile <name> --dump-config | grep 'dsh-permit-report-check'
 下表是示例集：第一行是详细走查，其余行是简短案例。
 
 
+#### 详细输出
+
+**工具** `permit_report_check`
+
+**输入**
+
+~~~json
+{"applicant":"某某公司","matter":"某某建设项目环评审批","rows":[{"序号":"1","许可事项":"建设项目环境影响评价文件审批","申请材料":"环境影响报告书全本及公众参与说明","已提交材料":""}]}
+~~~
+ 
+**输出**
+
+~~~json
+{
+  "id": "dsh-permit-report-check.PR-001.de09b5a6",
+  "ruleId": "PR-001",
+  "severity": "warn",
+  "locator": {
+    "row": 1,
+    "field": "requiredItems"
+  },
+  "found": "第 1 行「requiredItems」为「环境影响报告书全本及公众参与说明」，但缺 submittedItems",
+  "expected": "满足该条件的行应同时填写 submittedItems"
+}
+~~~
+
+*来源 `dsh-permit-report-check/tests/fixtures/PR-001/PR-001-unsafe.json`*
+
 | 你会问 | 它怎么答 |
 |---|---|
 | 某行的申请材料栏列了材料，已提交材料栏却空着，会被报出吗？ | 会。`PR-001` 要求凡申请材料栏填了内容的行都必须填写 `submittedItems`，提交情况栏为空即报出该行。它读的是台账自己列的申请材料栏，只核对是否记录了提交情况：不拿这份清单与该事项的办事指南比对，也不判断已提交的材料是否齐全、是否符合要求。若没有任何一行填了申请材料，本条进入 `skipped`，而不是静默通过。 |

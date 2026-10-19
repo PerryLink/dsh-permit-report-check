@@ -28,6 +28,34 @@ dsh --profile <name> --dump-config | grep 'dsh-permit-report-check'
 
 The table below is the example set: the first row is the detailed walkthrough, the remaining rows are short cases.
 
+#### Detailed output
+
+**Tool** `permit_report_check`
+
+**Input**
+
+~~~json
+{"applicant":"某某公司","matter":"某某建设项目环评审批","rows":[{"序号":"1","许可事项":"建设项目环境影响评价文件审批","申请材料":"环境影响报告书全本及公众参与说明","已提交材料":""}]}
+~~~
+ 
+**Output**
+
+~~~json
+{
+  "id": "dsh-permit-report-check.PR-001.de09b5a6",
+  "ruleId": "PR-001",
+  "severity": "warn",
+  "locator": {
+    "row": 1,
+    "field": "requiredItems"
+  },
+  "found": "第 1 行「requiredItems」为「环境影响报告书全本及公众参与说明」，但缺 submittedItems",
+  "expected": "满足该条件的行应同时填写 submittedItems"
+}
+~~~
+
+*Observed from `dsh-permit-report-check/tests/fixtures/PR-001/PR-001-unsafe.json`*
+
 | You ask | What it answers |
 |---|---|
 | A row lists materials in 申请材料, but 已提交材料 is blank — is that reported? | Yes. `PR-001` requires a `submittedItems` value on every row whose 申请材料 cell is filled, and reports the row when the submission column is empty. It reads the register's own materials column and checks only whether the submission is recorded: it does not compare that list with the matter's service guide, and does not judge whether the materials submitted are complete or compliant. If no row has a filled 申请材料 cell, the rule reports itself in `skipped`. |

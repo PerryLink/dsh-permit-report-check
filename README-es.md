@@ -30,6 +30,34 @@ Salida real de este plugin sobre su propio fixture de prueba `PR-002` — no es 
 La tabla siguiente es el conjunto de ejemplos: la primera fila es el caso detallado y las demás son casos breves.
 
 
+#### Salida detallada
+
+**Herramienta** `permit_report_check`
+
+**Entrada**
+
+~~~json
+{"applicant":"某某公司","matter":"某某建设项目环评审批","rows":[{"序号":"1","许可事项":"建设项目环境影响评价文件审批","申请材料":"环境影响报告书全本及公众参与说明","已提交材料":""}]}
+~~~
+ 
+**Salida**
+
+~~~json
+{
+  "id": "dsh-permit-report-check.PR-001.de09b5a6",
+  "ruleId": "PR-001",
+  "severity": "warn",
+  "locator": {
+    "row": 1,
+    "field": "requiredItems"
+  },
+  "found": "第 1 行「requiredItems」为「环境影响报告书全本及公众参与说明」，但缺 submittedItems",
+  "expected": "满足该条件的行应同时填写 submittedItems"
+}
+~~~
+
+*Observado en `dsh-permit-report-check/tests/fixtures/PR-001/PR-001-unsafe.json`*
+
 | Usted pregunta | Qué responde |
 |---|---|
 | Una fila enumera materiales en 申请材料, pero 已提交材料 está vacía, ¿se informa de ello? | Sí. `PR-001` exige un valor `submittedItems` en toda fila cuya celda 申请材料 esté rellena y señala la fila cuando la columna de presentación está vacía. Lee la columna de materiales del propio registro y comprueba solo si la presentación queda registrada: no compara esa lista con la guía de servicio del trámite ni juzga si los materiales presentados están completos o son conformes. Si ninguna fila tiene 申请材料 relleno, la regla pasa a `skipped`. |

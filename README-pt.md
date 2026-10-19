@@ -30,6 +30,34 @@ Saída real deste plugin sobre o seu próprio fixture de teste `PR-002` — não
 A tabela abaixo é o conjunto de exemplos: a primeira linha é o caso detalhado e as demais são casos curtos.
 
 
+#### Saída detalhada
+
+**Ferramenta** `permit_report_check`
+
+**Entrada**
+
+~~~json
+{"applicant":"某某公司","matter":"某某建设项目环评审批","rows":[{"序号":"1","许可事项":"建设项目环境影响评价文件审批","申请材料":"环境影响报告书全本及公众参与说明","已提交材料":""}]}
+~~~
+ 
+**Saída**
+
+~~~json
+{
+  "id": "dsh-permit-report-check.PR-001.de09b5a6",
+  "ruleId": "PR-001",
+  "severity": "warn",
+  "locator": {
+    "row": 1,
+    "field": "requiredItems"
+  },
+  "found": "第 1 行「requiredItems」为「环境影响报告书全本及公众参与说明」，但缺 submittedItems",
+  "expected": "满足该条件的行应同时填写 submittedItems"
+}
+~~~
+
+*Observado em `dsh-permit-report-check/tests/fixtures/PR-001/PR-001-unsafe.json`*
+
 | Você pergunta | O que ele responde |
 |---|---|
 | Uma linha lista materiais em 申请材料, mas 已提交材料 está vazia — isso é reportado? | Sim. `PR-001` exige um valor `submittedItems` em todas as linhas cuja célula 申请材料 esteja preenchida e assinala a linha quando a coluna de entrega está vazia. Lê a coluna de materiais do próprio registo e verifica apenas se a entrega ficou registada: não compara essa lista com o guia de serviço do pedido nem julga se os materiais entregues estão completos ou são conformes. Se nenhuma linha tiver 申请材料 preenchido, a regra passa a `skipped`. |

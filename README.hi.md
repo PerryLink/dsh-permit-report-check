@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-permit-report-check-flow-dark.svg">
-  <img src="docs/assets/dsh-permit-report-check-flow-light.svg" width="100%" alt="dsh-permit-report-check डेटा प्रवाह: rows[] लाइसेंस रजिस्टर → permit_report_check टूल → rules/*.yaml नियम पैक (PR-001..PR-007) → issues[] + skipped[] रिपोर्ट → समीक्षक का निर्णय; कॉन्फ़िगरेशन कुंजियाँ: rulesFile, disabledRules, onlyRules, skipNotes, timeoutMs">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-permit-report-check-hero-en-dark.webp">
+  <img src="docs/assets/dsh-permit-report-check-hero-en-light.webp" width="100%" alt="dsh-permit-report-check: बाईं ओर प्लगइन का नाम, मूल्य की दो पंक्तियाँ और 7 नियम व केवल-पढ़ने की टिप्पणी है; दाईं ओर नमूना रजिस्टर की पंक्ति 1 एक अनुपातिक तिथि-अक्ष पर है — स्वीकृति 2026-03-02 → निर्णय 2026-04-20 → वचनबद्ध पूर्णता 2026-04-30 — जहाँ PR-002 और PR-003 की तिथि-जाँच पास हैं; नीचे की तीन पंक्तियाँ नमूना निष्पादन के वास्तविक परिणाम हैं: PR-001 में submitted items खाली होने से issues[] (warn), PR-004 में values सेट न होने से skipped[], और PR-005 में अनुमति-चिह्न मिला व लाइसेंस संख्या भरी है; PR-002, PR-003, PR-006 और PR-007 बिना किसी अंतर के चले और किसी सूची में नहीं गए; नीचे गिनती error 0 · warn 1 · info 0, issueCount 1, skippedCount 1 है।">
 </picture>
 
 # dsh-permit-report-check
@@ -42,6 +42,11 @@ dsh plugin --profile <name> add dsh-permit-report-check
 - **आप क्या देते हैं**: जाँच के लिए मूल सामग्री (तालिका, रजिस्टर या दस्तावेज़); मूल कभी नहीं बदला जाता। Excel को पहले JSON/YAML में बदला जा सकता है, प्लेटफ़ॉर्म समर्थन दे तो चैट में ही।
 - **आपको क्या मिलता है**: «कौन-सी पंक्ति, कौन-सा कॉलम, क्या छूटा» की सूची; जो जाँच नहीं चल सकीं वे `skipped` में कारण के साथ दर्ज होती हैं।
 - **यह क्या नहीं करता**: अनुपालन निर्णय नहीं, दायित्व-निर्धारण नहीं, समीक्षक का विकल्प नहीं; केवल अंतर।
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-permit-report-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-permit-report-check-flow-v5-light.svg" width="100%" alt="dsh-permit-report-check: त्रि-अवस्था वितरण बोर्ड। बाईं ओर file या material (JSON या YAML) और रजिस्टर को उपनाम-मिलान से 17 मानक कॉलमों में सामान्यीकृत किया जाता है; कोई ज्ञात कॉलम न मिले तो सामग्री अस्वीकार होती है; disabledRules और onlyRules निकास बदलते हैं। मध्य में साथ भेजा नियम पैक rules/permit-report-check.yaml (संस्करण 2026.1, सात नियम PR-001..PR-007, पाँच जाँच प्रकार) है, और हर नियम केवल एक निकास से जाता है। दाईं ओर तीन निकास: मिले अंतर issues[] में (यहाँ PR-001, एक warn); जो नहीं चल सका वह कारण के साथ skipped[] में (PR-004, values सेट नहीं); जो चला पर कुछ न मिला वह किसी सूची में नहीं (PR-002, PR-003, PR-005, PR-006, PR-007)। दोनों सूची वाले निकास एक ही रिपोर्ट में मिलते हैं: error 0 · warn 1 · info 0, issueCount 1, skippedCount 1, markdown और reportJson, शब्द-रक्षक व अस्वीकरण के साथ; लाइसेंस निर्णय समीक्षक के पास रहता है।">
+</picture>
 
 ## तीन चरणों में शुरुआत
 

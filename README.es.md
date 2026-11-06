@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-permit-report-check-flow-dark.svg">
-  <img src="docs/assets/dsh-permit-report-check-flow-light.svg" width="100%" alt="Flujo de datos de dsh-permit-report-check: rows[] registro de licencias → herramienta permit_report_check → paquete de reglas rules/*.yaml (PR-001..PR-007) → informe issues[] + skipped[] → decisión del revisor; claves de configuración: rulesFile, disabledRules, onlyRules, skipNotes, timeoutMs">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-permit-report-check-hero-en-dark.webp">
+  <img src="docs/assets/dsh-permit-report-check-hero-en-light.webp" width="100%" alt="dsh-permit-report-check: la columna izquierda trae el nombre del plugin, dos líneas de valor y la nota de 7 reglas y solo lectura; el panel derecho sitúa la fila 1 del registro de ejemplo en un eje de fechas proporcional — aceptación 2026-03-02 → decisión 2026-04-20 → plazo prometido 2026-04-30 — con las comprobaciones PR-002 y PR-003 superadas; las tres filas inferiores son los resultados reales de la ejecución de ejemplo: PR-001 entra en issues[] (warn) porque la celda de materiales presentados está vacía, PR-004 entra en skipped[] porque values no está configurado y PR-005 encontró una marca de concesión con su número de licencia; PR-002, PR-003, PR-006 y PR-007 se ejecutaron sin hallazgos y no entran en ninguna lista; el pie cuenta error 0 · warn 1 · info 0, issueCount 1, skippedCount 1.">
 </picture>
 
 # dsh-permit-report-check
@@ -42,6 +42,11 @@ dsh plugin --profile <name> add dsh-permit-report-check
 - **Qué le das**: el material original sobre el que trabaja la comprobación (una tabla, un registro o un documento); el original nunca se modifica. Excel puede convertirse antes a JSON/YAML, incluso en el chat si la plataforma lo permite.
 - **Qué devuelve**: una lista de «qué fila, qué columna, qué falta»; cada comprobación que no pudo ejecutarse aparece en `skipped` con su motivo.
 - **Qué no hace**: no dictamina cumplimiento, no determina responsabilidad y no sustituye al revisor; solo enumera diferencias.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-permit-report-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-permit-report-check-flow-v5-light.svg" width="100%" alt="dsh-permit-report-check: tablero de clasificación en tres estados. A la izquierda, file o material (JSON o YAML) y el registro se normalizan a 17 columnas canónicas mediante alias que ignoran mayúsculas, espacios, guiones bajos y guiones; si no se reconoce ninguna columna conocida, se rechaza el material; disabledRules y onlyRules cambian las salidas. En el centro, el paquete de reglas rules/permit-report-check.yaml (versión 2026.1, siete reglas PR-001..PR-007, cinco tipos de comprobación), donde cada regla sale por una sola puerta. A la derecha, tres salidas: los hallazgos van a issues[] (PR-001, un warn); lo que no pudo ejecutarse va a skipped[] con su motivo (PR-004, values sin configurar); lo que se ejecutó sin hallazgos no entra en ninguna lista (PR-002, PR-003, PR-005, PR-006, PR-007). Las dos salidas con contenido confluyen en un solo informe: error 0 · warn 1 · info 0, issueCount 1, skippedCount 1, en markdown y reportJson, con el guardián de redacción y la exención de responsabilidad; la decisión sobre la licencia queda con el revisor.">
+</picture>
 
 ## Instalación en tres pasos
 

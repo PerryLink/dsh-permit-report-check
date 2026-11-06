@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-permit-report-check-flow-dark.svg">
-  <img src="docs/assets/dsh-permit-report-check-flow-light.svg" width="100%" alt="dsh-permit-report-check 数据流：rows[] 行政许可办理台账 → permit_report_check 工具 → rules/*.yaml 规则包（PR-001..PR-007）→ issues[] + skipped[] 报告 → 审核人裁决；配置键：rulesFile、disabledRules、onlyRules、skipNotes、timeoutMs">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-permit-report-check-hero-zh-dark.webp">
+  <img src="docs/assets/dsh-permit-report-check-hero-zh-light.webp" width="100%" alt="dsh-permit-report-check 配图：左列是插件名、两行价值句与「7 条规则 · 只读材料」的说明；右侧把样例台账第 1 行摊在一条按日期比例排布的轴上——受理 2026-03-02 → 决定 2026-04-20 → 承诺办结日 2026-04-30，PR-002 与 PR-003 的日期闭环都通过；下方三行是本次运行的真实去向：PR-001 因已提交材料为空进 issues[]（warn），PR-004 因 values 未配置进 skipped[]，PR-005 命中准予标记且许可证号已填写；跑过未命中的 PR-002、PR-003、PR-006、PR-007 两栏都不进，底部计数 error 0 · warn 1 · info 0、issueCount 1、skippedCount 1。">
 </picture>
 
 # dsh-permit-report-check
@@ -42,6 +42,11 @@ dsh plugin --profile <name> add dsh-permit-report-check
 - **你交什么**：这项核对用到的原始材料（表格、清单或文书）；不改原件。Excel 可先转成 JSON/YAML，对话里也能代转。
 - **它交什么**：一份「哪一行、哪一栏、差什么」的清单；没能执行的检查逐条列入 `skipped` 并写明原因。
 - **它不做什么**：不判合规、不认定责任、不替代审核人；只列材料内部能逐条指认的差异。
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-permit-report-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-permit-report-check-flow-v5-light.svg" width="100%" alt="dsh-permit-report-check 结构图（三态分诊台）：左侧是输入与归一——file 或 material、JSON 或 YAML、表头与 rows[] 经别名匹配归一到 17 个规范栏目，不认得任何已知栏名就拒读，disabledRules 与 onlyRules 直接改变出口；中央是随包的规则包 rules/permit-report-check.yaml（版本 2026.1、7 条规则、5 种 check），每条规则只走一个出口；右侧三个出口：命中的进 issues[]（本例 PR-001 一条 warn），没能执行的进 skipped[]（本例 PR-004 因 values 未配置），跑过而未命中的两栏都不进（PR-002、PR-003、PR-005、PR-006、PR-007）；两条有字的通道汇入同一份报告：error 0 · warn 1 · info 0、issueCount 1、skippedCount 1，附 markdown 与 reportJson、措辞守卫与免责声明，许可决定留给审批人。">
+</picture>
 
 ## 三步上手
 

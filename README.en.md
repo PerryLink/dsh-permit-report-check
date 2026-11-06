@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-permit-report-check-flow-dark.svg">
-  <img src="docs/assets/dsh-permit-report-check-flow-light.svg" width="100%" alt="dsh-permit-report-check data flow: rows[] licensing register → permit_report_check tool → rules/*.yaml rule pack (PR-001..PR-007) → issues[] + skipped[] report → reviewer decision; config keys: rulesFile, disabledRules, onlyRules, skipNotes, timeoutMs">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-permit-report-check-hero-en-dark.webp">
+  <img src="docs/assets/dsh-permit-report-check-hero-en-light.webp" width="100%" alt="dsh-permit-report-check: the left column carries the plugin name, two value lines and the note that it ships 7 rules and is read-only; the right panel lifts row 1 of the sample ledger onto a proportional date axis — accepted 2026-03-02 → decided 2026-04-20 → promised due 2026-04-30 — with the PR-002 and PR-003 date checks passing; the three rows below are the real outcomes of the quickstart run: PR-001 enters issues[] (warn) because the submitted-items cell is blank, PR-004 enters skipped[] because values is unset, and PR-005 matched a grant marker with its certificate number filled; PR-002, PR-003, PR-006 and PR-007 ran clean and enter neither list; the footer counts error 0 · warn 1 · info 0, issueCount 1, skippedCount 1.">
 </picture>
 
 # dsh-permit-report-check
@@ -42,6 +42,11 @@ dsh plugin --profile <name> add dsh-permit-report-check
 - **What you give it**: the source material the check works on (a table, register or document); the original is never modified. Excel can be converted to JSON/YAML first, in chat if the platform supports it.
 - **What you get back**: a list of "which row, which column, what is off"; every check that could not run is listed in `skipped` with its reason.
 - **What it does not do**: no compliance verdict, no liability finding, no replacement for the reviewer; differences only.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-permit-report-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-permit-report-check-flow-v5-light.svg" width="100%" alt="dsh-permit-report-check structure: a tri-state dispatch board. On the left, file or material (JSON or YAML) plus the header and rows[] are normalised to 17 canonical columns by alias matching that ignores case, spaces, underscores and hyphens; if no known column is recognised the material is rejected, and disabledRules / onlyRules change the exits. In the centre, the bundled rule pack rules/permit-report-check.yaml (version 2026.1, seven rules PR-001..PR-007, five check kinds) — each rule leaves through exactly one exit. On the right, three exits: hits go to issues[] (PR-001, one warn here); checks that could not run go to skipped[] with a reason (PR-004, values unset); rules that ran and found nothing enter neither list (PR-002, PR-003, PR-005, PR-006, PR-007). Both named channels converge on one report: error 0 · warn 1 · info 0, issueCount 1, skippedCount 1, rendered as markdown plus reportJson under the wording guard and disclaimer; the permit decision stays with the reviewer.">
+</picture>
 
 ## Three-step setup
 

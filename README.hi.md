@@ -48,6 +48,11 @@ dsh plugin --profile <name> add dsh-permit-report-check
   <img src="docs/assets/dsh-permit-report-check-flow-v5-light.svg" width="100%" alt="dsh-permit-report-check: त्रि-अवस्था वितरण बोर्ड। बाईं ओर file या material (JSON या YAML) और रजिस्टर को उपनाम-मिलान से 17 मानक कॉलमों में सामान्यीकृत किया जाता है; कोई ज्ञात कॉलम न मिले तो सामग्री अस्वीकार होती है; disabledRules और onlyRules निकास बदलते हैं। मध्य में साथ भेजा नियम पैक rules/permit-report-check.yaml (संस्करण 2026.1, सात नियम PR-001..PR-007, पाँच जाँच प्रकार) है, और हर नियम केवल एक निकास से जाता है। दाईं ओर तीन निकास: मिले अंतर issues[] में (यहाँ PR-001, एक warn); जो नहीं चल सका वह कारण के साथ skipped[] में (PR-004, values सेट नहीं); जो चला पर कुछ न मिला वह किसी सूची में नहीं (PR-002, PR-003, PR-005, PR-006, PR-007)। दोनों सूची वाले निकास एक ही रिपोर्ट में मिलते हैं: error 0 · warn 1 · info 0, issueCount 1, skippedCount 1, markdown और reportJson, शब्द-रक्षक व अस्वीकरण के साथ; लाइसेंस निर्णय समीक्षक के पास रहता है।">
 </picture>
 
+![dsh-permit-report-check का असली टर्मिनल रन](docs/assets/dsh-permit-report-check-demo.gif)
+
+*इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
+
+
 ## तीन चरणों में शुरुआत
 
 1. **इंस्टॉल** (कोई एक माध्यम चुनें):

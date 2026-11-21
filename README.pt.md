@@ -48,6 +48,11 @@ dsh plugin --profile <name> add dsh-permit-report-check
   <img src="docs/assets/dsh-permit-report-check-flow-v5-light.svg" width="100%" alt="dsh-permit-report-check: painel de triagem em três estados. À esquerda, file ou material (JSON ou YAML) e o registro são normalizados em 17 colunas canônicas por apelidos que ignoram maiúsculas, espaços, sublinhados e hífens; sem nenhuma coluna conhecida, o material é recusado; disabledRules e onlyRules mudam as saídas. Ao centro, o pacote de regras rules/permit-report-check.yaml (versão 2026.1, sete regras PR-001..PR-007, cinco tipos de verificação), e cada regra sai por uma única porta. À direita, três saídas: achados vão para issues[] (PR-001, um warn); o que não pôde correr vai para skipped[] com motivo (PR-004, values não configurado); o que correu sem achados não entra em nenhuma lista (PR-002, PR-003, PR-005, PR-006, PR-007). As duas saídas com conteúdo convergem num único relatório: error 0 · warn 1 · info 0, issueCount 1, skippedCount 1, em markdown e reportJson, com o guardião de redação e o aviso de responsabilidade; a decisão sobre a licença fica com o revisor.">
 </picture>
 
+![dsh-permit-report-check: execução real de terminal](docs/assets/dsh-permit-report-check-demo.gif)
+
+*Repetição animada de uma execução real registrada neste repositório.*
+
+
 ## Instalação em três passos
 
 1. **Instale** (escolha um canal):

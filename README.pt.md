@@ -11,6 +11,8 @@
 
 Um plugin de verificação somente de dados para DeepSeek Harness: lê um registro de tramitação de licenças administrativas (o cabeçalho do requerente mais uma linha por pedido), aplica o pacote de regras versionado que acompanha (PR-001..PR-007) e lista apenas as diferenças que consegue apontar dentro do registro, sem parecer de conformidade nem juízo de responsabilidade.
 
+Última verificação: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [Instalar](#instalação-em-três-passos) · [Configuração](#configuração) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -51,7 +53,6 @@ dsh plugin --profile <name> add dsh-permit-report-check
 ![dsh-permit-report-check: execução real de terminal](docs/assets/dsh-permit-report-check-demo.gif)
 
 *Repetição animada de uma execução real registrada neste repositório.*
-
 
 ## Instalação em três passos
 

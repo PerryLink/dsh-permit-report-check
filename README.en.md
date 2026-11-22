@@ -7,6 +7,8 @@
 
 # dsh-permit-report-check
 
+Current version `0.2.15`.
+
 **Check an administrative licensing register row by row — you get a list of which row, which column, and what is off; the permit decision stays with the approver.**
 
 A data-only checker plugin for DeepSeek Harness: it reads one administrative licensing register (an applicant header plus one row per application item), applies the versioned rule pack it ships (PR-001..PR-007), and lists only the differences it can point to inside the register — never a compliance verdict, never a liability finding.
